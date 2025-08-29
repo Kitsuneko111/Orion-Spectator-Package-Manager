@@ -1,0 +1,23 @@
+[project]
+name = "ospm"
+version = "0.0.1"
+authors = [
+  { name="Kitsuneko111", email="OSMP+Kitsuneko111@users.noreply.github.com" },
+]
+description = "An NPM and pip inspired package manger for the Orion Drift spectator package system"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 1 - Planning",
+    #"Private :: WIP",
+    "Environment :: Console",
+    "Intended Audience :: Developers"
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
