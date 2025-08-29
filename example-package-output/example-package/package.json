@@ -1,0 +1,24 @@
+{
+    "name": "Example Package",
+    "version": "1.0.0",
+    "description": "An example package to showcase basic structure",
+    "main": "main.luau",
+    "keywords": [
+      "Example",
+      "Package"
+    ],
+    "author": "Kitsuneko111",
+    "types": "",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Kitsuneko111/Orion-Spectator-Package-Manager"
+    },
+    "license": "MIT",
+    "dependencies": {
+      "another-example": "^1.0.1",
+      "yet-another": "github:https://example.com"
+    },
+    "devDependencies": {
+      "example-dev-dep": "^0.1.0"
+    }
+}
