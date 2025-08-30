@@ -1,13 +1,11 @@
-import typing as t
-from typing import Optional, Any
+from typing import Optional
 
-from click import Context
 from typing_extensions import Annotated
 
 import typer
 
-from typer.core import TyperGroup
 
+from .gui.gui import run_gui
 from utils.generate_version import version
 
 from commands import commands
@@ -22,7 +20,7 @@ def with_context(callback):
     def wrapper(value, ctx: typer.Context):
         if ctx.obj is None:
             ctx.obj = {}
-        ctx.obj["version"] = "1.0.0"  # inject your context here
+        ctx.obj["version"] = version  # inject your context here
         return callback(value, ctx)   # call the original callback
     return wrapper
 
@@ -39,9 +37,21 @@ def main(
             "-v",
             callback=with_context(callbacks["version"]),
             is_eager=True
-        )] = None
+        )] = None,
+        verbose: Annotated[Optional[bool], typer.Option(help="Adds extra logging")] = False,
+        quiet: Annotated[Optional[bool], typer.Option("--quiet", "-q",
+                                                      help="Lessens the output logs (overrides --verbose)")] = False,
+        yes: Annotated[Optional[bool], typer.Option("--yes", "-y")] = False,
+        gui: Annotated[Optional[bool], typer.Option()] = False
 ):
-    pass
+    if verbose:
+        ctx.obj["verbose"] = True
+    if quiet:
+        ctx.obj["quiet"] = True
+    if yes:
+        ctx.obj["yes"] = True
+    if gui:
+        run_gui()
 
 
 if __name__ == "__main__":
