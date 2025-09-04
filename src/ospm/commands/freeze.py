@@ -3,8 +3,8 @@ import typer
 freeze_app = typer.Typer()
 
 
-@freeze_app.command("f")
-@freeze_app.command("fr")
+@freeze_app.command("f", hidden=True)
+@freeze_app.command("fr", hidden=True)
 @freeze_app.command()
 def freeze():
     """
