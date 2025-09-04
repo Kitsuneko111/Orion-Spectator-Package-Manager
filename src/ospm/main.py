@@ -1,17 +1,16 @@
 from typing import Optional
-
 from typing_extensions import Annotated
-
 import typer
 
-
-from .gui.gui import run_gui
+from gui.gui import run_gui
+from utils.change_path import change_path
 from utils.generate_version import version
+from utils.easy_print import easy_print
 
 from commands import commands
 from callbacks import callbacks
 
-app = typer.Typer()
+app = typer.Typer(rich_markup_mode="markdown")
 
 
 # Pre-injection wrapper for any callback
@@ -32,6 +31,7 @@ for name, command in commands.items():
 @app.callback(invoke_without_command=True)
 def main(
         ctx: typer.Context,
+        package: Annotated[Optional[str], typer.Option("--package", "-p")] = "",
         version: Annotated[Optional[bool], typer.Option(
             "--version",
             "-v",
@@ -46,12 +46,17 @@ def main(
 ):
     if verbose:
         ctx.obj["verbose"] = True
+        easy_print(ctx, "Setting up context", "[INFO]")
     if quiet:
         ctx.obj["quiet"] = True
     if yes:
         ctx.obj["yes"] = True
     if gui:
+        if verbose:
+            easy_print(ctx, "Starting GUI", "[INFO]")
         run_gui()
+
+    change_path(ctx, package)
 
 
 if __name__ == "__main__":
